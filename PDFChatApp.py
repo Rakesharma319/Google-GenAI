@@ -60,11 +60,12 @@ def main():
                              temperature=0.3)
             chain = load_qa_chain(llm, chain_type='stuff')
             
-            with get_openai_callback() as cost:
-                response = chain.run(input_documents=docs, question=query)
-                print(cost)
-                
-            st.write(response)
+            response = chain(
+                {"input_documents":docs, "question": user_question}
+                , return_only_outputs=True)
+
+            print(response)
+            st.write("Reply: ", response["output_text"])
             
             
 if __name__ == "__main__":
