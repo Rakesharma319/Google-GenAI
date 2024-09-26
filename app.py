@@ -21,39 +21,6 @@ genai.configure(api_key=GOOGLE_API_KEY)
 import requests
 import base64
 
-# Function to upload file to GitHub
-def upload_to_github(repo, path, token, file_path):
-    with open(file_path, "rb") as file:
-        content = base64.b64encode(file.read()).decode("utf-8")
-    
-    url = f"https://api.github.com/repos/{repo}/contents/{path}"
-    headers = {
-        "Authorization": f"token {token}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "message": "Add FAISS index",
-        "content": content
-    }
-    
-    response = requests.put(url, json=data, headers=headers)
-    if response.status_code == 201:
-        print("File uploaded successfully.")
-    else:
-        print(f"Failed to upload file: {response.json()}")
-
-# Example usage
-repo = "Rakesharma319/Google-GenAI"
-path = "faiss_index/index.faiss"
-token = ""
-file_path = "faiss_index/index.faiss"
-
-# upload_to_github(repo, path, token, file_path)
-
-
-
-
-
 
 def get_pdf_text(pdf_docs):
     text=""
@@ -74,8 +41,8 @@ def get_text_chunks(text):
 def get_vector_store(text_chunks):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
-    upload_to_github(repo, path, token, file_path)
     # vector_store.save_local("faiss_index")
+    return vector_store
 
 
 def get_conversational_chain():
@@ -102,7 +69,7 @@ def get_conversational_chain():
 def user_input(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     
-    new_db = FAISS.load_local("faiss_index", embeddings)
+    new_db = knowledgeBase
     docs = new_db.similarity_search(user_question)
 
     chain = get_conversational_chain()
@@ -134,7 +101,8 @@ def main():
             with st.spinner("Processing..."):
                 raw_text = get_pdf_text(pdf_docs)
                 text_chunks = get_text_chunks(raw_text)
-                get_vector_store(text_chunks)
+                knowledgeBase = get_vector_store(text_chunks)
+                # get_vector_store(text_chunks)
                 st.success("Done")
 
 
