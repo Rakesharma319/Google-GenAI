@@ -9,7 +9,7 @@ import google.generativeai as genai
 
 # os.getenv("GOOGLE_API_KEY")
 # genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-genai.configure(api_key="AIzaSyBzf0bkSuLUmsK1cpFlfzIqRumzbVLpAHk")
+# genai.configure(api_key="AIzaSyBzf0bkSuLUmsK1cpFlfzIqRumzbVLpAHk")
 
 ## Function to load OpenAI model and get respones
 
@@ -24,6 +24,17 @@ def get_gemini_response(input,image):
 ##initialize our streamlit app
 
 st.set_page_config(page_title="Gemini Image Demo")
+with st.sidebar:
+    GOOGLE_API_KEY = st.text_input("OpenAI API Key", key="langchain_search_api_key_openai", type="password")
+    "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
+    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/pages/2_Chat_with_search.py)"
+    "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
+
+if not GOOGLE_API_KEY:
+        st.info("Please add your OpenAI API key to continue.")
+        st.stop()
+else:
+    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 st.header("Image Q&A APP - Gemini Gen AI")
 input=st.text_input("Input Prompt: ",key="input")
