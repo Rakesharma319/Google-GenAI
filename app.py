@@ -45,7 +45,7 @@ def upload_to_github(repo, path, token, file_path):
 # Example usage
 repo = "Rakesharma319/Google-GenAI"
 path = "faiss_index/index.faiss"
-token = "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"
+token = ""
 file_path = "faiss_index/index.faiss"
 
 # upload_to_github(repo, path, token, file_path)
