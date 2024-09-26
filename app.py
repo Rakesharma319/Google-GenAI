@@ -105,10 +105,10 @@ def main():
                 st.success("Done")
 
     
-    user_question = st.text_input("Ask a Question from the PDF Files")
+        user_question = st.text_input("Ask a Question from the PDF Files")
 
-    if user_question:
-        user_input(user_question)
+        if user_question:
+            user_input(user_question)
 
 if __name__ == "__main__":
     main()
