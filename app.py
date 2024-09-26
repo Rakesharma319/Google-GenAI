@@ -88,10 +88,10 @@ def main():
     st.set_page_config("Chat PDF")
     st.header("Chat with PDF using Gemini💁")
 
-    user_question = st.text_input("Ask a Question from the PDF Files")
+    # user_question = st.text_input("Ask a Question from the PDF Files")
 
-    if user_question:
-        user_input(user_question)
+    # if user_question:
+    #     user_input(user_question)
 
     with st.sidebar:
         st.title("Menu:")
@@ -104,7 +104,11 @@ def main():
                 # get_vector_store(text_chunks)
                 st.success("Done")
 
+    
+    user_question = st.text_input("Ask a Question from the PDF Files")
 
+    if user_question:
+        user_input(user_question)
 
 if __name__ == "__main__":
     main()
