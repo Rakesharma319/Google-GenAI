@@ -18,6 +18,38 @@ from langchain.prompts import PromptTemplate
 GOOGLE_API_KEY="AIzaSyBzf0bkSuLUmsK1cpFlfzIqRumzbVLpAHk"
 genai.configure(api_key=GOOGLE_API_KEY)
 
+import requests
+import base64
+
+# Function to upload file to GitHub
+def upload_to_github(repo, path, token, file_path):
+    with open(file_path, "rb") as file:
+        content = base64.b64encode(file.read()).decode("utf-8")
+    
+    url = f"https://api.github.com/repos/{repo}/contents/{path}"
+    headers = {
+        "Authorization": f"token {token}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "message": "Add FAISS index",
+        "content": content
+    }
+    
+    response = requests.put(url, json=data, headers=headers)
+    if response.status_code == 201:
+        print("File uploaded successfully.")
+    else:
+        print(f"Failed to upload file: {response.json()}")
+
+# Example usage
+repo = "Rakesharma319/Google-GenAI"
+path = "faiss_index/index.faiss"
+token = ""
+file_path = "faiss_index/index.faiss"
+
+# upload_to_github(repo, path, token, file_path)
+
 
 
 
@@ -42,7 +74,8 @@ def get_text_chunks(text):
 def get_vector_store(text_chunks):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
-    vector_store.save_local("faiss_index")
+    upload_to_github(repo, path, token, file_path)
+    # vector_store.save_local("faiss_index")
 
 
 def get_conversational_chain():
