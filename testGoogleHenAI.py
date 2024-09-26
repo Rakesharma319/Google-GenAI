@@ -28,7 +28,7 @@ st.set_page_config(page_title="Gemini Image Demo")
     
 st.header("Image Q&A APP - Gemini Gen AI")
 
-GOOGLE_API_KEY = st.text_input("Gemini API Key", key="service", type="password",placeholder="Enter or Pase Gemini API Key and press Enter!")
+GOOGLE_API_KEY = st.text_input("Gemini API Key", key="service", type="password",placeholder="Enter or Paste Gemini API Key and press Enter!")
 genai.configure(api_key=GOOGLE_API_KEY)
 
 input=st.text_input("Input Prompt: ",key="input")
