@@ -24,11 +24,13 @@ def get_gemini_response(input,image):
 ##initialize our streamlit app
 
 st.set_page_config(page_title="Gemini Image Demo")
-GOOGLE_API_KEY = st.text_input("Gemini API Key", key="service", type="password")
-    
-genai.configure(api_key=GOOGLE_API_KEY)
+
     
 st.header("Image Q&A APP - Gemini Gen AI")
+
+GOOGLE_API_KEY = st.text_input("Gemini API Key", key="service", type="password",placeholder="Enter or Pase Gemini API Key and press Enter!")
+genai.configure(api_key=GOOGLE_API_KEY)
+
 input=st.text_input("Input Prompt: ",key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 image=""   
