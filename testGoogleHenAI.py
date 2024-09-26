@@ -34,7 +34,7 @@ if not GOOGLE_API_KEY:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 else:
-    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+    genai.configure(api_key="GOOGLE_API_KEY")
 
 st.header("Image Q&A APP - Gemini Gen AI")
 input=st.text_input("Input Prompt: ",key="input")
