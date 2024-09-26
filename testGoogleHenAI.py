@@ -4,7 +4,6 @@ import pathlib
 import textwrap
 from PIL import Image
 
-
 import google.generativeai as genai
 
 
