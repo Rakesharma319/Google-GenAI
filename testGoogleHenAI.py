@@ -24,7 +24,7 @@ def get_gemini_response(input,image):
 ##initialize our streamlit app
 
 st.set_page_config(page_title="Gemini Image Demo")
-GOOGLE_API_KEY = st.text_input("Gemini API Key", key="GOOGLE_API_KEY", type="password")
+GOOGLE_API_KEY = st.text_input("Gemini API Key", key="langchain_search_api_key_openai", type="password")
     
 if not GOOGLE_API_KEY:
         st.info("Please add your OpenAI API key to continue.")
